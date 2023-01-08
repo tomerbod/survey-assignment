@@ -10,7 +10,6 @@ const buttons = [
 //event listener for the "sort by" dropdown menu
 document.getElementById("sort-by").addEventListener("change", (event) => {
   currentSortBy = event.target.value;
-  console.log(currentSortBy);
   renderSurveyList(currentPage, currentSortBy);
 });
 
@@ -44,10 +43,7 @@ const handlePaginationLinkClick = (event) => {
 
 const addSurveys = (surveysToDisplay, surveyListContainer) => {
   surveysToDisplay.forEach((element) => {
-    console.log(`surveys.${element.id}`);
     const survey = JSON.parse(localStorage.getItem(`surveys.${element.id}`));
-    console.log(survey);
-    console.log(survey.id);
 
     const surveyContainer = document.createElement("div");
     surveyContainer.classList.add("survey");
