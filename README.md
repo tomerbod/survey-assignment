@@ -1,9 +1,9 @@
 # survey-assignment
 
-# add the live server extension in the extensions section of your IDE
+1.add the live server extension in the extensions section of your IDE
 
-# exit the IDE and open it again
+2.exit the IDE and open it again
 
-# open the project in the IDE
+3.open the project in the IDE
 
-# righ click index.html and choose "open with live server"
+4.righ click index.html and choose "open with live server"
