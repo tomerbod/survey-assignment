@@ -42,8 +42,10 @@ const handlePaginationLinkClick = (event) => {
 };
 
 const addSurveys = (surveysToDisplay, surveyListContainer) => {
-  surveysToDisplay.forEach((element) => {
-    const survey = JSON.parse(localStorage.getItem(`surveys.${element.id}`));
+  surveysToDisplay.forEach((surveyToDisplay) => {
+    const survey = JSON.parse(
+      localStorage.getItem(`surveys.${surveyToDisplay.id}`)
+    );
 
     const surveyContainer = document.createElement("div");
     surveyContainer.classList.add("survey");
@@ -129,17 +131,6 @@ const renderSurveyList = (page = currentPage, sortBy = currentSortBy) => {
 
   // check if there are any surveys in the local storage
   if (surveysByTopic) {
-    // sort the surveys by the specified field
-    surveysByTopic.sort((a, b) => {
-      if (a[sortBy] < b[sortBy]) {
-        return -1;
-      }
-      if (a[sortBy] > b[sortBy]) {
-        return 1;
-      }
-      return 0;
-    });
-
     handlePagination(
       surveysByTopic,
       handlePaginationLinkClick,
