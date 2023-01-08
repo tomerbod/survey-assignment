@@ -45,3 +45,5 @@ const handlePagination = (
     element.addEventListener("click", handlePaginationLinkClick);
   });
 };
+
+const sortBy = ["name", "creationDate", "author"];

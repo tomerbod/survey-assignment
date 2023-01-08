@@ -1,8 +1,10 @@
+//on first opening
 window.addEventListener("load", function () {
   history.pushState({ route: "/surveys" }, "Surveys", "/surveys");
   handleSurveysRoute();
 });
 
+//handle routring
 const handleSurveysRoute = (route = "/surveys") => {
   const routeParts = route.split("/");
   const surveyId = routeParts[2];
@@ -26,6 +28,7 @@ const handleSurveysRoute = (route = "/surveys") => {
   return;
 };
 
+//inject to index.html according to routing;
 const renderSurveyRoute = (routeDirectory) => {
   fetch(`${routeDirectory}.html`)
     .then((response) => response.text())

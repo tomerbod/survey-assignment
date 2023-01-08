@@ -10,6 +10,7 @@ const buttons = [
 //event listener for the "sort by" dropdown menu
 document.getElementById("sort-by").addEventListener("change", (event) => {
   currentSortBy = event.target.value;
+  console.log(currentSortBy);
   renderSurveyList(currentPage, currentSortBy);
 });
 
@@ -24,11 +25,13 @@ document.getElementById("create-survey").addEventListener("click", () => {
 });
 
 const handleDeleteButtonClick = (event) => {
-  let surveys = JSON.parse(localStorage.getItem("surveys"));
-  const id = event.target.dataset.innerid;
+  sortBy.forEach((sort) => {
+    let surveys = JSON.parse(localStorage.getItem(`surveys.${sort}`));
+    const id = event.target.dataset.innerid;
 
-  surveys = surveys.filter((survey) => id != survey.id);
-  localStorage.setItem("surveys", JSON.stringify(surveys));
+    surveys = surveys.filter((survey) => id != survey.id);
+    localStorage.setItem(`surveys.${sort}`, JSON.stringify(surveys));
+  });
   renderSurveyList(currentPage, currentSortBy);
 };
 
@@ -40,18 +43,23 @@ const handlePaginationLinkClick = (event) => {
 };
 
 const addSurveys = (surveysToDisplay, surveyListContainer) => {
-  surveysToDisplay.forEach((element, index) => {
+  surveysToDisplay.forEach((element) => {
+    console.log(`surveys.${element.id}`);
+    const survey = JSON.parse(localStorage.getItem(`surveys.${element.id}`));
+    console.log(survey);
+    console.log(survey.id);
+
     const surveyContainer = document.createElement("div");
     surveyContainer.classList.add("survey");
 
     const surveyName = document.createElement("div");
     surveyName.classList.add("survey-name");
-    surveyName.innerHTML = `${element.name}`;
+    surveyName.innerHTML = `${survey.name}`;
     surveyContainer.appendChild(surveyName);
 
     const surveyInfo = document.createElement("div");
     surveyInfo.classList.add("survey-info");
-    surveyInfo.innerHTML = `Created by ${element.author} on ${element.creationDate}`;
+    surveyInfo.innerHTML = `Created by ${survey.author} on ${survey.creationDate}`;
     surveyContainer.appendChild(surveyInfo);
 
     const surveyButtonContainer = document.createElement("div");
@@ -61,7 +69,7 @@ const addSurveys = (surveysToDisplay, surveyListContainer) => {
     buttons.forEach((button) => {
       const surveyButton = document.createElement("button");
       surveyButton.classList.add(button.class);
-      surveyButton.setAttribute("data-innerId", element.id);
+      surveyButton.setAttribute("data-innerId", survey.id);
       surveyButton.innerHTML = button.name;
       surveyButtonContainer.appendChild(surveyButton);
     });
@@ -71,8 +79,10 @@ const addSurveys = (surveysToDisplay, surveyListContainer) => {
 };
 
 const renderSurveyPage = () => {
-  let surveys = JSON.parse(localStorage.getItem("surveys"));
-  if (surveys) {
+  let surveysByTopic = JSON.parse(
+    localStorage.getItem(`surveys.${currentSortBy}`)
+  );
+  if (surveysByTopic) {
     renderSurveyList(currentPage, currentSortBy);
   } else {
     document.getElementById("survey-list").innerHTML = "No surveys found.";
@@ -117,12 +127,14 @@ const handleButtons = () => {
 const renderSurveyList = (page = currentPage, sortBy = currentSortBy) => {
   // retrieve the list of surveys from the local storage
 
-  let surveys = JSON.parse(localStorage.getItem("surveys"));
+  let surveysByTopic = JSON.parse(
+    localStorage.getItem(`surveys.${currentSortBy}`)
+  );
 
   // check if there are any surveys in the local storage
-  if (surveys) {
+  if (surveysByTopic) {
     // sort the surveys by the specified field
-    surveys.sort((a, b) => {
+    surveysByTopic.sort((a, b) => {
       if (a[sortBy] < b[sortBy]) {
         return -1;
       }
@@ -133,7 +145,7 @@ const renderSurveyList = (page = currentPage, sortBy = currentSortBy) => {
     });
 
     handlePagination(
-      surveys,
+      surveysByTopic,
       handlePaginationLinkClick,
       "survey-list",
       page,

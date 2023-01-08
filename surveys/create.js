@@ -60,9 +60,31 @@ document
       id: surveysCreated,
     };
 
-    let surveys = JSON.parse(localStorage.getItem("surveys")) || [];
-    surveys.push(surveyWithoutQuestions);
-    localStorage.setItem("surveys", JSON.stringify(surveys));
+    localStorage.setItem(
+      `surveys.${surveysCreated}`,
+      JSON.stringify(surveyWithoutQuestions)
+    );
+
+    //can add with binary search
+    sortBy.forEach((sort) => {
+      let surveys = JSON.parse(localStorage.getItem(`surveys.${sort}`)) || [];
+      const survey = {};
+      (survey["id"] = surveyWithoutQuestions.id),
+        (survey[sort] = surveyWithoutQuestions[sort]);
+      surveys.push(survey);
+
+      surveys.sort((a, b) => {
+        if (a[sort] < b[sort]) {
+          return -1;
+        }
+        if (a[sort] > b[sort]) {
+          return 1;
+        }
+        return 0;
+      });
+
+      localStorage.setItem(`surveys.${sort}`, JSON.stringify(surveys));
+    });
 
     // handle the route of /surveys
     handleSurveysRoute();
