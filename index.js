@@ -1,6 +1,3 @@
-import { Router } from "./router.js";
-import { StoreManager } from "./storeManagerComponent.js";
-
 const router = new Router();
 const store = new StoreManager();
 
