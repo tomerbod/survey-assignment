@@ -1,11 +1,9 @@
+const router = new Router();
+const zaz = new SurveyComponent("111", "222", "333");
+
 const NumberOfSurveysInPage = 4;
 let currentSortBy = "creationDate";
 let currentPage = 1;
-const buttons = [
-  { name: "Delete", class: "delete-button" },
-  { name: "Results", class: "results-button" },
-  { name: "Answer", class: "answer-button" },
-];
 
 //event listener for the "sort by" dropdown menu
 document.getElementById("sort-by").addEventListener("change", (event) => {
@@ -15,22 +13,19 @@ document.getElementById("sort-by").addEventListener("change", (event) => {
 
 //event listener for the "create survey" button
 document.getElementById("create-survey").addEventListener("click", () => {
-  history.pushState(
-    { route: "/surveys/create" },
-    "Create Survey",
-    "/surveys/create"
-  );
-  handleSurveysRoute("/surveys/create");
+  router.changeRoute("/surveys/create", "Create Survey");
 });
 
 const handleDeleteButtonClick = (event) => {
+  const id = event.target.dataset.innerid;
   sortBy.forEach((sort) => {
-    let surveys = JSON.parse(localStorage.getItem(`surveys.${sort}`));
-    const id = event.target.dataset.innerid;
-
+    let surveys = store.get(`surveys.${sort}`);
     surveys = surveys.filter((survey) => id != survey.id);
-    localStorage.setItem(`surveys.${sort}`, JSON.stringify(surveys));
+    store.set(`surveys.${sort}`, surveys);
   });
+  store.remove(`surveys.${id}`);
+  store.remove(`surveysQuestions.${id}`);
+  store.remove(`surveysAnswers.${id}`);
   renderSurveyList(currentPage, currentSortBy);
 };
 
@@ -43,44 +38,16 @@ const handlePaginationLinkClick = (event) => {
 
 const addSurveys = (surveysToDisplay, surveyListContainer) => {
   surveysToDisplay.forEach((surveyToDisplay) => {
-    const survey = JSON.parse(
-      localStorage.getItem(`surveys.${surveyToDisplay.id}`)
-    );
+    const surveyData = store.get(`surveys.${surveyToDisplay.id}`);
+    const survey = new SurveyComponent(surveyData);
 
-    const surveyContainer = document.createElement("div");
-    surveyContainer.classList.add("survey");
-
-    const surveyName = document.createElement("div");
-    surveyName.classList.add("survey-name");
-    surveyName.innerHTML = `${survey.name}`;
-    surveyContainer.appendChild(surveyName);
-
-    const surveyInfo = document.createElement("div");
-    surveyInfo.classList.add("survey-info");
-    surveyInfo.innerHTML = `Created by ${survey.author} on ${survey.creationDate}`;
-    surveyContainer.appendChild(surveyInfo);
-
-    const surveyButtonContainer = document.createElement("div");
-    surveyButtonContainer.classList.add("survey-buttons");
-    surveyContainer.appendChild(surveyButtonContainer);
-
-    buttons.forEach((button) => {
-      const surveyButton = document.createElement("button");
-      surveyButton.classList.add(button.class);
-      surveyButton.setAttribute("data-innerId", survey.id);
-      surveyButton.innerHTML = button.name;
-      surveyButtonContainer.appendChild(surveyButton);
-    });
-
-    surveyListContainer.appendChild(surveyContainer);
+    surveyListContainer.appendChild(survey.render());
   });
 };
 
 const renderSurveyPage = () => {
-  let surveysByTopic = JSON.parse(
-    localStorage.getItem(`surveys.${currentSortBy}`)
-  );
-  if (surveysByTopic) {
+  let surveysByTopic = store.get(`surveys.${currentSortBy}`);
+  if (surveysByTopic?.length > 0) {
     renderSurveyList(currentPage, currentSortBy);
   } else {
     document.getElementById("survey-list").innerHTML = "No surveys found.";
@@ -95,25 +62,14 @@ const handleButtons = () => {
   Array.from(answerButtons)?.forEach((element) => {
     element.addEventListener("click", (event) => {
       const id = event.target.dataset.innerid;
-
-      history.pushState(
-        { route: `/surveys/${id}` },
-        "Answer Survey",
-        `/surveys/${id}`
-      );
-      handleSurveysRoute(`/surveys/${id}`);
+      router.changeRoute(`/surveys/${id}`, "Answer Survey");
     });
   });
 
   Array.from(resultsButtons)?.forEach((element) => {
     element.addEventListener("click", (event) => {
       const id = event.target.dataset.innerid;
-      handleSurveysRoute(`/surveys/${id}/results`);
-      history.pushState(
-        { route: `/surveys/${id}/results` },
-        "Results",
-        `/surveys/${id}/results`
-      );
+      router.changeRoute(`/surveys/${id}/results`, "Results");
     });
   });
 
@@ -125,9 +81,7 @@ const handleButtons = () => {
 const renderSurveyList = (page = currentPage, sortBy = currentSortBy) => {
   // retrieve the list of surveys from the local storage
 
-  let surveysByTopic = JSON.parse(
-    localStorage.getItem(`surveys.${currentSortBy}`)
-  );
+  let surveysByTopic = store.get(`surveys.${currentSortBy}`);
 
   // check if there are any surveys in the local storage
   if (surveysByTopic) {

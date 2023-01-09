@@ -2,10 +2,8 @@ const NumberOfQuestionsInPage = 4;
 let currentPage = 1;
 
 const id = window.location.pathname.split("/")[2];
-const surveyResults = JSON.parse(localStorage.getItem(`surveysAnswers.${id}`));
-const surveyQuestions = JSON.parse(
-  localStorage.getItem(`surveysQuestions.${id}`)
-);
+const surveyResults = store.get(`surveysAnswers.${id}`);
+const surveyQuestions = store.get(`surveysQuestions.${id}`);
 
 const handlePaginationLinkClick = (event) => {
   event.preventDefault();
@@ -13,19 +11,8 @@ const handlePaginationLinkClick = (event) => {
   renderResultList(currentPage);
 };
 
-const renderResultList = (page = currentPage) => {
-  handlePagination(
-    surveyQuestions,
-    handlePaginationLinkClick,
-    "answer-container",
-    page,
-    addResults,
-    NumberOfQuestionsInPage
-  );
-};
-
 //addResults get an "resultsToDisplay" that consists of results from the local storage and append them to "resultListContainer"
-addResults = (resultsToDisplay, resultListContainer) => {
+const addResults = (resultsToDisplay, resultListContainer) => {
   resultsToDisplay.forEach((question, index) => {
     const answerContainer = document.createElement("div");
     answerContainer.classList.add(`answer`);
@@ -113,6 +100,17 @@ addResults = (resultsToDisplay, resultListContainer) => {
     }
     resultListContainer.appendChild(answerContainer);
   });
+};
+
+const renderResultList = (page = currentPage) => {
+  handlePagination(
+    surveyQuestions,
+    handlePaginationLinkClick,
+    "answer-container",
+    page,
+    addResults,
+    NumberOfQuestionsInPage
+  );
 };
 
 renderResultList();

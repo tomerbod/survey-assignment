@@ -1,7 +1,7 @@
 
 <head>
     <script src="create.js"></script>
-    <link rel="stylesheet" href="create.css">
+    <link rel="stylesheet" href="create/create.css">
     <title>Create surveys</title>
 </head>
 <body>
@@ -15,8 +15,15 @@
     <h2>Questions</h2>
     <div id="questions-container"> 
     <button type="button" id="add-question-button">Add question</button>
+    <select id="question-type-selector">
+      <option value="open">Open</option>
+      <option value="closed">Closed</option>
+      <option value="multi">Multi select</option>
+    </select>
     <br><br>
   </div>
     <input type="submit" value="Create" id="create-question-button">
   </form>
 </body>
+
+

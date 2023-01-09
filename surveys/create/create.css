@@ -36,7 +36,7 @@
     color: blue;
   }
 
-  #add-question-button, #create-question-button, .create-answers-button{
+  #add-question-button, #create-question-button, .create-answers-button,   #question-type-selector, .question-insert-button{
     background-image: linear-gradient(to bottom, #ccffff, #ffffcc);
     padding: 10px 20px;
     border-radius: 5px;
@@ -47,3 +47,4 @@
     border-width: 4px;
     margin: 5px;
   }
+
