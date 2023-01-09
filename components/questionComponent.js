@@ -1,4 +1,4 @@
-export class Question {
+class Question {
   constructor(params) {
     this.survey = params?.survey;
     this.title = params?.title;
@@ -54,7 +54,7 @@ export class Question {
   }
 }
 
-export class OpenQuestion extends Question {
+class OpenQuestion extends Question {
   constructor(params) {
     super(params);
     this.type = "open";
@@ -80,7 +80,7 @@ export class OpenQuestion extends Question {
   }
 }
 
-export class ChoiceQuestion extends Question {
+class ChoiceQuestion extends Question {
   constructor(params) {
     super(params);
     this.possibleAnswers = params?.possibleAnswers || [];
@@ -118,7 +118,7 @@ export class ChoiceQuestion extends Question {
   }
 }
 
-export class MultipleChoiceQuestion extends ChoiceQuestion {
+class MultipleChoiceQuestion extends ChoiceQuestion {
   constructor(params) {
     super(params);
     this.type = "multi";
@@ -158,7 +158,7 @@ export class MultipleChoiceQuestion extends ChoiceQuestion {
   }
 }
 
-export class ClosedChoiceQuestion extends ChoiceQuestion {
+class ClosedChoiceQuestion extends ChoiceQuestion {
   constructor(params) {
     super(params);
     this.type = "closed";

@@ -1,4 +1,4 @@
-export class StoreManager {
+class StoreManager {
   static getInstance() {
     if (!this.instance) {
       this.instance = new StoreManager();

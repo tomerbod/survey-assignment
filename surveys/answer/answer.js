@@ -1,7 +1,4 @@
 //to add - pagination for answers
-
-const router = new Router();
-
 const id = window.location.pathname.split("/")[2];
 
 const questions = store.get(`surveysQuestions.${id}`);

@@ -26,6 +26,9 @@
     margin: 5px;
   }
 
+  table, th, td {
+    border:1px solid black;
+  }
  
 
   .survey {
@@ -71,6 +74,8 @@
     font-size: 14px; 
     cursor: pointer; 
     transition: 0.3s; 
+    margin-right: 2.5px;
+    margin-left: 2.5px;
   }
   
   .delete-button:hover, .answer-button:hover,  .results-button:hover{

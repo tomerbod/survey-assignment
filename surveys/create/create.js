@@ -1,5 +1,3 @@
-const router = new Router();
-
 //create survey id through a counter stored in the local storage
 let surveysCreated = (store.get("surveysCreated") || 0) + 1;
 

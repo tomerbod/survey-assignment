@@ -1,5 +1,5 @@
 //on first opening
-export class Router {
+class Router {
   static getInstance() {
     if (!this.instance) {
       this.instance = new Router();

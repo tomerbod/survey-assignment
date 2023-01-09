@@ -30,9 +30,9 @@ const handlePagination = (
   let paginationHTML = "";
   for (let i = 1; i <= numPages; i++) {
     if (i == page) {
-      paginationHTML += `<span class="pagination-item active">${i}</span>`;
+      paginationHTML += `<span class="pagination-item active">page ${i} </span>`;
     } else {
-      paginationHTML += `<a href="#" class="pagination-item" data-page="${i}">${i}</a>`;
+      paginationHTML += `<a href="#" class="pagination-item" data-page="${i}">page ${i} </a>`;
     }
   }
 
