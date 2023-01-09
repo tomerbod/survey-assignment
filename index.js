@@ -1,6 +1,8 @@
 import { Router } from "./router.js";
+import { StoreManager } from "./storeManagerComponent.js";
 
-export const router = new Router();
+const router = new Router();
+const store = new StoreManager();
 
 //on first opening
 window.addEventListener("load", function () {

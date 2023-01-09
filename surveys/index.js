@@ -1,5 +1,4 @@
 const router = new Router();
-const zaz = new SurveyComponent("111", "222", "333");
 
 const NumberOfSurveysInPage = 4;
 let currentSortBy = "creationDate";
