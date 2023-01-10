@@ -42,6 +42,8 @@ class Router {
       case `/surveys/${surveyId}/results`:
         routeDirectory = "/surveys/results/results";
         break;
+      default:
+        routeDirectory = "surveys/index";
     }
     this.injectSurveyRoute(routeDirectory);
   }
