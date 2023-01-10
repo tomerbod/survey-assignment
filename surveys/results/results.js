@@ -58,7 +58,9 @@ const addResults = (resultsToDisplay, resultListContainer) => {
         });
       } else {
         surveyResults?.forEach((result) => {
-          const answer = result[index];
+          const resultIndex =
+            index + NumberOfQuestionsInPage * (currentPage - 1);
+          const answer = result[resultIndex];
           answer.forEach((answer) => {
             if (!answerCounts[answer]) {
               answerCounts[answer] = 0;

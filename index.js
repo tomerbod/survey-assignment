@@ -10,3 +10,9 @@ window.addEventListener("load", function () {
 window.onpopstate = function (event) {
   router.handleSurveysRoute(event.state.route);
 };
+
+//mocked data
+const mocked = localStorage.getItem("mocked");
+if (!(mocked === "true")) {
+  mockData();
+}
