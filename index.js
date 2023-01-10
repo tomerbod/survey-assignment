@@ -1,12 +1,12 @@
 const router = Router.getInstance();
 const store = StoreManager.getInstance();
 //on first opening
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
   router.changeRoute("/surveys", "Surveys");
 });
 
 // responsible for back and foward on browser
-window.onpopstate = function (event) {
+window.onpopstate = (event) => {
   router.handleSurveysRoute(event.state.route);
 };
 
