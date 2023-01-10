@@ -1,5 +1,5 @@
-const router = new Router();
-const store = new StoreManager();
+const router = Router.getInstance();
+const store = StoreManager.getInstance();
 //on first opening
 window.addEventListener("load", function () {
   router.changeRoute("/surveys", "Surveys");
