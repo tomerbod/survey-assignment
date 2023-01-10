@@ -49,3 +49,8 @@
     margin: 5px;
   }
 
+  .answers-container {
+    display: flex;
+    flex-direction: column;
+  }
+
