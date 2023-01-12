@@ -1,14 +1,18 @@
-const router = Router.getInstance();
-const store = StoreManager.getInstance();
-//on first opening
-window.addEventListener("load", () => {
-  router.changeRoute("/surveys", "Surveys");
-});
+import router from "./classes/router.js";
 
 // responsible for back and foward on browser
 window.onpopstate = (event) => {
-  router.handleSurveysRoute(event.state.route);
+  if (event.state?.route) router.handleSurveysRoute(event.state.route);
 };
+
+window.onhashchange = (event) => {
+  router.handleSurveysRoute(event.newURL);
+};
+
+//on first opening
+window.addEventListener("load", () => {
+  router.changeRoute(`${urlEnum.Survey}`, "Surveys");
+});
 
 //mocked data
 const mocked = localStorage.getItem("mocked");

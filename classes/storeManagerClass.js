@@ -1,7 +1,7 @@
-class StoreManager {
+class StoreManagerClass {
   static getInstance() {
     if (!this.instance) {
-      this.instance = new StoreManager();
+      this.instance = new StoreManagerClass();
     }
     return this.instance;
   }
@@ -18,3 +18,6 @@ class StoreManager {
     localStorage.removeItem(key);
   }
 }
+
+const store = new StoreManagerClass();
+export default store;

@@ -1,4 +1,7 @@
-class SurveyComponent {
+import router from "./router.js";
+import store from "./storeManagerClass.js";
+
+export class SurveyClass {
   constructor(params) {
     this.id = params.id;
     this.questions = [];
@@ -14,6 +17,7 @@ class SurveyComponent {
       },
       { name: "Answer", class: "answer-button", callback: this.answerSurvey },
     ];
+    this.surveyPage = params?.surveyPage;
   }
 
   checkValidation() {
@@ -56,7 +60,7 @@ class SurveyComponent {
   }
 
   save() {
-    store.set(`surveys.${this.id}`, {
+    store.set(`${prefixEnum.Surveys}.${this.id}`, {
       name: this.name,
       author: this.author,
       creationDate: this.creationDate,
@@ -64,7 +68,7 @@ class SurveyComponent {
     });
     //can add binary search
     sortBy.forEach((sort) => {
-      let surveys = store.get(`surveys.${sort}`) || [];
+      let surveys = store.get(`${prefixEnum.Surveys}.${sort}`) || [];
       const surveyData = {};
       (surveyData["id"] = this.id), (surveyData[sort] = this[sort]);
       surveys.push(surveyData);
@@ -79,11 +83,11 @@ class SurveyComponent {
         return 0;
       });
 
-      store.set(`surveys.${sort}`, surveys);
+      store.set(`${prefixEnum.Surveys}.${sort}`, surveys);
     });
 
-    store.set(`surveysQuestions.${this.id}`, this.questions);
-
+    store.set(`${prefixEnum.Questions}.${this.id}`, this.questions);
+    store.set(`${prefixEnum.Answers}.${this.id}.${prefixEnum.Counter}`, 0);
     store.set("surveysCreated", this.id);
   }
   addQuestion(question) {
@@ -95,20 +99,30 @@ class SurveyComponent {
   deleteSurvey = () => {
     sortBy.forEach((sort) => {
       //can use binary search
-      let surveys = store.get(`surveys.${sort}`);
+      let surveys = store.get(`${prefixEnum.Surveys}.${sort}`);
       surveys = surveys.filter((survey) => this.id != survey.id);
-      store.set(`surveys.${sort}`, surveys);
+      store.set(`${prefixEnum.Surveys}.${sort}`, surveys);
     });
-    store.remove(`surveys.${this.id}`);
-    store.remove(`surveysQuestions.${this.id}`);
-    store.remove(`surveysAnswers.${this.id}`);
+    store.remove(`${prefixEnum.Surveys}.${this.id}`);
+    store.remove(`${prefixEnum.Questions}.${this.id}`);
+    const counter = store.get(
+      `${prefixEnum.Answers}.${this.id}.${prefixEnum.Counter}`
+    );
+    for (let index = 1; index < counter; index++) {
+      store.remove(`${prefixEnum.Answers}.${this.id}.${index}`);
+    }
+    store.remove(`${prefixEnum.Answers}.${this.id}.${prefixEnum.Counter}`);
+    router.changeRoute(`${urlEnum.Survey}`, "Surveys");
   };
 
   displaySurveyResults = () => {
-    router.changeRoute(`/surveys/${this.id}/results`, "Results");
+    router.changeRoute(
+      `${urlEnum.Survey}/${this.id}${urlEnum.Results}`,
+      "Results"
+    );
   };
 
   answerSurvey = () => {
-    router.changeRoute(`/surveys/${this.id}`, "Answer Survey");
+    router.changeRoute(`${urlEnum.Survey}/${this.id}`, "Answer Survey");
   };
 }
