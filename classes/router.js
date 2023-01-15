@@ -19,6 +19,7 @@ export class Router {
     }
 
     const pageContainer = document.getElementById("pageContainer");
+
     switch (true) {
       case url === "/surveys":
         pageContainer.appendChild(new SurveyPage().renderPage());

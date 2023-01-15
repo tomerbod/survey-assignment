@@ -15,10 +15,16 @@ export class ResultsPage {
   renderPage() {
     const container = document.createElement("div");
     container.setAttribute("id", "page");
-    const title = document.createElement("h2");
-    title.innerText = "Results for survey";
-    container.appendChild(title);
-    container.appendChild(this.renderResultList());
+    if (this.surveyQuestions === null) {
+      const error = document.createElement("h2");
+      error.innerText = `there is no survey under the id of ${this.id}`;
+      container.appendChild(error);
+    } else {
+      const title = document.createElement("h2");
+      title.innerText = "Results for survey";
+      container.appendChild(title);
+      container.appendChild(this.renderResultList());
+    }
     return container;
   }
 

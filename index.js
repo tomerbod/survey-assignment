@@ -9,9 +9,14 @@ window.onhashchange = (event) => {
   router.handleSurveysRoute(event.newURL);
 };
 
-//on first opening
-window.addEventListener("load", () => {
-  router.changeRoute(`${urlEnum.Survey}`, "Surveys");
+window.addEventListener("load", (event) => {
+  const url = window.location.href;
+  if (url.includes("#")) {
+    router.handleSurveysRoute(url);
+  } else {
+    //first load
+    router.changeRoute(`${urlEnum.Survey}`, "/#/Surveys");
+  }
 });
 
 //mocked data

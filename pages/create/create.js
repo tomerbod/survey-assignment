@@ -32,14 +32,19 @@ export class CreatePage {
 
       if (!this.survey.checkValidation()) {
         event.preventDefault();
-        return;
+        document.getElementById("error-valid").innerText =
+          "fill all of the inputs and at least insert one question with possible answers!";
+      } else {
+        this.survey.save();
+        router.changeRoute(`${urlEnum.Survey}`, "Surveys");
       }
-      this.survey.save();
-      router.changeRoute(`${urlEnum.Survey}`, "Surveys");
     });
     formContainer.appendChild(createsurveyButton);
 
     container.appendChild(formContainer);
+    const errorValid = document.createElement("h2");
+    errorValid.setAttribute("id", "error-valid");
+    container.appendChild(errorValid);
     return container;
   }
 

@@ -14,7 +14,7 @@ const questionTypeEnum = {
 };
 
 const urlEnum = {
-  Survey: "#/surveys",
+  Survey: "/#/surveys",
   Create: "/create",
   Results: "/results",
 };
