@@ -14,7 +14,6 @@ export class Router {
     const pageContainer = document.getElementById("pageContainer");
     switch (true) {
       case url === "/surveys":
-        console.log("/surveys");
         import("../pages/index.js").then((imporedPage) => {
           document.getElementById("page")?.remove();
           pageContainer.appendChild(new imporedPage.SurveyPage().renderPage());
