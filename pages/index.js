@@ -30,9 +30,7 @@ export class SurveyPage {
     select.addEventListener("change", (event) => {
       this.sortBy = event.target.value;
       document.getElementById("elements-container").remove();
-      document
-        .getElementById("pageContainer")
-        .appendChild(this.renderSurveys());
+      document.getElementById("page").appendChild(this.renderSurveys());
     });
     container.appendChild(select);
 
