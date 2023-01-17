@@ -1,5 +1,5 @@
 //on first opening
-export class Router {
+class Router {
   handleSurveysRoute(route = `${urlEnum.Survey}`) {
     const url = route.split("#")[1];
     const surveyId = url.split("/")[2];
