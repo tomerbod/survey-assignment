@@ -3,22 +3,19 @@ import { Result } from "./resultClass.js";
 export class ClosedResult extends Result {
   constructor(params) {
     super(params);
-    this.title = params?.title;
-    this.answers = params?.answers;
-    this.index = params?.index;
-    this.possibleAnswers = params?.possibleAnswers;
+    Object.assign(this, params);
   }
 
   render() {
     const answerContainer = super.render();
-    const answerCounts = {};
-    this.answers?.forEach((result) => {
-      const answer = result[this.index];
-      if (!answerCounts[answer]) {
-        answerCounts[answer] = 0;
+
+    const answerCounts = this.answers?.reduce((accumulator, currentValue) => {
+      if (!accumulator[currentValue[this.index]]) {
+        accumulator[currentValue[this.index]] = 0;
       }
-      answerCounts[answer]++;
-    });
+      accumulator[currentValue[this.index]]++;
+      return accumulator;
+    }, {});
 
     answerContainer.appendChild(
       this.createGraph(this.possibleAnswers, answerCounts)

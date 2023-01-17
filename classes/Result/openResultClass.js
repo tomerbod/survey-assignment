@@ -3,9 +3,7 @@ import { Result } from "./resultClass.js";
 export class OpenResult extends Result {
   constructor(params) {
     super(params);
-    this.title = params?.title;
-    this.answers = params?.answers;
-    this.index = params?.index;
+    Object.assign(this, params);
   }
 
   render() {

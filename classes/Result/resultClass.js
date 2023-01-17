@@ -1,6 +1,6 @@
 export class Result {
   constructor(params) {
-    this.title = params?.title;
+    this.title = params.title;
   }
 
   render() {

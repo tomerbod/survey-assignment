@@ -1,8 +1,6 @@
 export class Question {
   constructor(params) {
-    this.survey = params?.survey;
-    this.title = params?.title;
-    this.index = params?.index;
+    Object.assign(this, params);
   }
 
   insert() {

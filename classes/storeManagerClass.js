@@ -1,11 +1,4 @@
 class StoreManagerClass {
-  static getInstance() {
-    if (!this.instance) {
-      this.instance = new StoreManagerClass();
-    }
-    return this.instance;
-  }
-
   get(key) {
     return JSON.parse(localStorage.getItem(key));
   }

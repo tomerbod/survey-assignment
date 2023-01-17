@@ -20,3 +20,14 @@ const urlEnum = {
 };
 
 const NumberOfQuestionsInPage = 4;
+
+const isSurveyIdValid = (surveyId) => {
+  return /^\d+$/.test(surveyId);
+};
+
+const directories = {
+  HomePage: "/pages/index.js",
+  CreatePage: "/pages/create/create.js",
+  AnswerPage: "/pages/answer/answer.js",
+  ResultPage: "/pages/results/results.js",
+};

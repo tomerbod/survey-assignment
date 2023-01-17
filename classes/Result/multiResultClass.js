@@ -3,10 +3,7 @@ import { Result } from "./resultClass.js";
 export class MultiResult extends Result {
   constructor(params) {
     super(params);
-    this.title = params?.title;
-    this.answers = params?.answers;
-    this.index = params?.index;
-    this.possibleAnswers = params?.possibleAnswers;
+    Object.assign(this, params);
   }
 
   render() {
@@ -21,6 +18,20 @@ export class MultiResult extends Result {
         answerCounts[answer]++;
       });
     });
+
+    const answerCounts2 = this.answers?.reduce((accumulator, currentValue) => {
+      currentValue[this.index]?.forEach((answer) => {
+        if (!accumulator[answer]) {
+          accumulator[answer] = 0;
+        }
+        accumulator[answer]++;
+      });
+
+      return accumulator;
+    }, {});
+
+    console.log({ answerCounts });
+    console.log({ answerCounts2 });
 
     answerContainer.appendChild(
       this.createGraph(this.possibleAnswers, answerCounts)
