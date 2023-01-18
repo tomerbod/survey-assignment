@@ -1,4 +1,4 @@
-class StoreManagerClass {
+class StoreManager {
   get(key) {
     return JSON.parse(localStorage.getItem(key));
   }
@@ -12,5 +12,5 @@ class StoreManagerClass {
   }
 }
 
-const store = new StoreManagerClass();
+const store = new StoreManager();
 export default store;

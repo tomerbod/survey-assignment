@@ -3,6 +3,7 @@ import router from "../../classes/router.js";
 import { ClosedChoiceQuestion } from "../../classes/question/ClosedChoiceClass.js";
 import { OpenQuestion } from "../../classes/question/openQuestionClass.js";
 import { MultipleChoiceQuestion } from "../../classes/question/multipleChoiceClass.js";
+import { prefixEnum, questionTypeEnum, urlEnum } from "../../constans.js";
 
 export class AnswerPage {
   constructor(params) {
@@ -16,37 +17,49 @@ export class AnswerPage {
     const container = document.createElement("div");
     container.setAttribute("id", "page");
     if (this.questionsData === null) {
-      const error = document.createElement("h2");
-      error.innerText = `there is no survey under the id of ${this.id}`;
-      container.appendChild(error);
+      this.handleError(container);
     } else {
-      const formContainer = document.createElement("form");
-      formContainer.setAttribute("id", "answer-survey-form");
-      const title = document.createElement("h2");
-      title.innerText = "Answer Survey";
-      formContainer.appendChild(title);
-      const answerContainer = document.createElement("div");
-      answerContainer.setAttribute("id", "answer-container");
-      this.renderQuestions(answerContainer);
-
-      formContainer.appendChild(answerContainer);
-      const createButton = document.createElement("button");
-      createButton.setAttribute("id", "submit-answers-button");
-      createButton.innerText = "Submit";
-      createButton.type = "button";
-
-      createButton.addEventListener("click", (event) => {
-        // prevent the default form submission behavior
-        event.preventDefault();
-        this.saveAnswers();
-      });
-      formContainer.appendChild(createButton);
-      container.appendChild(formContainer);
-      const errorValid = document.createElement("h2");
-      errorValid.setAttribute("id", "error-valid");
-      container.appendChild(errorValid);
+      this.createAnswerContainer(container);
     }
     return container;
+  }
+
+  handleError(container) {
+    const error = document.createElement("h2");
+    error.innerText = `there is no survey under the id of ${this.id}`;
+    container.appendChild(error);
+  }
+
+  createAnswerContainer(container) {
+    const formContainer = document.createElement("form");
+    formContainer.setAttribute("id", "answer-survey-form");
+    const title = document.createElement("h2");
+    title.innerText = "Answer Survey";
+    formContainer.appendChild(title);
+    const answerContainer = document.createElement("div");
+    answerContainer.setAttribute("id", "answer-container");
+    this.renderQuestions(answerContainer);
+
+    formContainer.appendChild(answerContainer);
+    this.createCreateButton(formContainer);
+    container.appendChild(formContainer);
+    const errorValid = document.createElement("h2");
+    errorValid.setAttribute("id", "error-valid");
+    container.appendChild(errorValid);
+  }
+
+  createCreateButton(container) {
+    const createButton = document.createElement("button");
+    createButton.setAttribute("id", "submit-answers-button");
+    createButton.innerText = "Submit";
+    createButton.type = "button";
+
+    createButton.addEventListener("click", (event) => {
+      // prevent the default form submission behavior
+      event.preventDefault();
+      this.saveAnswers();
+    });
+    container.appendChild(createButton);
   }
 
   renderQuestions(answerContainer) {

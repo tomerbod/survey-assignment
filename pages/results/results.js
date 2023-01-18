@@ -3,6 +3,11 @@ import { OpenResult } from "../../classes/Result/openResultClass.js";
 import { ClosedResult } from "../../classes/Result/closedResultClass.js";
 import { MultiResult } from "../../classes/Result/multiResultClass.js";
 import { paginationClass } from "../../classes/paginationClass.js";
+import {
+  prefixEnum,
+  NumberOfQuestionsInPage,
+  questionTypeEnum,
+} from "../../constans.js";
 
 export class ResultsPage {
   constructor(params, page = 1) {
@@ -48,14 +53,14 @@ export class ResultsPage {
     resultsToDisplay.forEach((question, index) => {
       let result;
       switch (question.type) {
-        case "open":
+        case questionTypeEnum.Open:
           result = new OpenResult({
             title: question.text,
             answers: this.surveyResults,
             index: index + NumberOfQuestionsInPage * (this.page - 1),
           });
           break;
-        case "multi":
+        case questionTypeEnum.Multi:
           result = new MultiResult({
             title: question.text,
             answers: this.surveyResults,
@@ -63,7 +68,7 @@ export class ResultsPage {
             possibleAnswers: question.possibleAnswers,
           });
           break;
-        case "closed":
+        case questionTypeEnum.Closed:
           result = new ClosedResult({
             title: question.text,
             answers: this.surveyResults,

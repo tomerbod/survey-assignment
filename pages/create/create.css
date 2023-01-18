@@ -1,6 +1,6 @@
 
   #create-survey-form {
-    padding: 20px;
+    padding: var( --main-padding);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,27 +9,27 @@
   form#create-survey-form label,
   form#create-survey-form input
    {
-    padding: 10px;
-    margin: 10px;
-    font-size: 20px;
+    padding: var( --main-padding);
+    margin: var( --main-margin);
+    font-size: var(--main-font-size) / 1.5;
     color: #333;
-    border-radius: 5px;
+    border-radius:  var(--main-border-radius);
     border: 1px solid #333;
   }
 
   #questions-container {
-    padding: 20px;
+    padding: var( --main-padding);
   }
 
   .question {
     border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    box-shadow: var(--main-shadow-box);
+    padding: var( --main-padding);
     margin-bottom: 20px;
   }
 
   .question:hover {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--main-shadow-box)
   }
 
   .question.open .label {
@@ -38,15 +38,14 @@
 
   #add-question-button, #create-question-button, .create-answers-button,   #question-type-selector, .question-insert-button{
     align-items:flex-start;
-    background-image: linear-gradient(to bottom, #ccffff, #ffffcc);
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
+    background-image: var(--main-lg-color);
+    padding: var(--main-padding);
+    font-size: var(--main-font-size) / 2;
     font-weight: bold;
     color: #333333;
     margin-top: 20px;
     border-width: 4px;
-    margin: 5px;
+    margin: var(--main-margin);
   }
 
   .answers-container {

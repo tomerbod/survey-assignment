@@ -21,13 +21,18 @@ const urlEnum = {
 
 const NumberOfQuestionsInPage = 4;
 
-const isSurveyIdValid = (surveyId) => {
-  return /^\d+$/.test(surveyId);
-};
-
-const directories = {
+const directoriesEnum = {
   HomePage: "/pages/index.js",
   CreatePage: "/pages/create/create.js",
   AnswerPage: "/pages/answer/answer.js",
   ResultPage: "/pages/results/results.js",
+};
+
+export {
+  sortBy,
+  prefixEnum,
+  questionTypeEnum,
+  urlEnum,
+  NumberOfQuestionsInPage,
+  directoriesEnum,
 };

@@ -2,6 +2,14 @@ import store from "../classes/storeManagerClass.js";
 import router from "../classes/router.js";
 import { SurveyClass } from "../classes/surveyComponent.js";
 import { paginationClass } from "../classes/paginationClass.js";
+import { sortBy, prefixEnum, urlEnum } from "../../constans.js";
+
+const tableString = `<tr>
+<th>Name</th>
+<th>Author</th>
+<th>Creation Date</th>
+<th>Actions</th>
+</tr>`;
 const options = {
   creationDate: "creation date",
   name: "name",
@@ -15,6 +23,13 @@ export class SurveyPage {
   }
   renderPage() {
     const container = document.createElement("div");
+    this.createPageHeader(container);
+    this.createCreateButton(container);
+    container.appendChild(this.renderSurveys());
+    return container;
+  }
+
+  createPageHeader(container) {
     container.setAttribute("id", "page");
     const title = document.createElement("h2");
     title.innerText = "Existing surveys";
@@ -33,7 +48,9 @@ export class SurveyPage {
       document.getElementById("page").appendChild(this.renderSurveys());
     });
     container.appendChild(select);
+  }
 
+  createCreateButton(container) {
     const createButton = document.createElement("button");
     createButton.setAttribute("id", "create-survey");
     createButton.innerText = "Create survey";
@@ -41,8 +58,6 @@ export class SurveyPage {
       router.changeRoute(`${urlEnum.Survey}${urlEnum.Create}`, "Create Survey");
     });
     container.appendChild(createButton);
-    container.appendChild(this.renderSurveys());
-    return container;
   }
 
   renderSurveys() {
@@ -54,8 +69,6 @@ export class SurveyPage {
         page: this.page,
         handleElementsFunction: this.addSurveys,
       }).renderPagination();
-    } else {
-      document.getElementById("page").innerHTML = "No surveys found.";
     }
   }
 
@@ -68,12 +81,7 @@ export class SurveyPage {
   }
   addSurveys(surveysToDisplay, surveyListContainer) {
     const table = document.createElement("table");
-    table.innerHTML = `<tr>
-    <th>Name</th>
-    <th>Author</th>
-    <th>Creation Date</th>
-    <th>Actions</th>
-  </tr>`;
+    table.innerHTML = tableString;
     surveysToDisplay.forEach((surveyToDisplay) => {
       const surveyData = store.get(
         `${prefixEnum.Surveys}.${surveyToDisplay.id}`

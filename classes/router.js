@@ -1,41 +1,34 @@
+import { isSurveyIdValid } from "../validators.js";
+import { urlEnum } from "../constans.js";
+import { SurveyPage } from "../pages/index.js";
+import { AnswerPage } from "../pages/answer/answer.js";
+import { CreatePage } from "../pages/create/create.js";
+import { ResultsPage } from "../pages/results/results.js";
+
 //on first opening
 class Router {
   handleSurveysRoute(route = `${urlEnum.Survey}`) {
     const url = route.split("#")[1];
     const surveyId = url.split("/")[2];
+    document.getElementById("page")?.remove();
 
     const pageContainer = document.getElementById("pageContainer");
     switch (true) {
       case url === "/surveys":
-        import(`..${directories.HomePage}`).then((imporedPage) => {
-          document.getElementById("page")?.remove();
-          pageContainer.appendChild(new imporedPage.SurveyPage().renderPage());
-        });
+        pageContainer.appendChild(new SurveyPage().renderPage());
         break;
       case url === "/surveys/create":
-        import(`..${directories.CreatePage}`).then((imporedPage) => {
-          document.getElementById("page")?.remove();
-          pageContainer.appendChild(new imporedPage.CreatePage().renderPage());
-        });
+        pageContainer.appendChild(new CreatePage().renderPage());
         break;
       case url === `/surveys/${surveyId}` && isSurveyIdValid(surveyId):
-        import(`..${directories.AnswerPage}`).then((imporedPage) => {
-          document.getElementById("page")?.remove();
-          pageContainer.appendChild(
-            new imporedPage.AnswerPage({ id: surveyId }).renderPage()
-          );
-        });
+        pageContainer.appendChild(
+          new AnswerPage({ id: surveyId }).renderPage()
+        );
         break;
       case url === `/surveys/${surveyId}/results` && isSurveyIdValid(surveyId):
-        import(`..${directories.ResultPage}`).then((imporedPage) => {
-          document.getElementById("page")?.remove();
-          pageContainer.appendChild(
-            new imporedPage.ResultsPage({
-              id: surveyId,
-            }).renderPage()
-          );
-        });
-
+        pageContainer.appendChild(
+          new ResultsPage({ id: surveyId }).renderPage()
+        );
         break;
       default:
         this.changeRoute(`${urlEnum.Survey}`, "Surveys");

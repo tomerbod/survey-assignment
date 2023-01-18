@@ -1,5 +1,6 @@
 import router from "./router.js";
 import store from "./storeManagerClass.js";
+import { sortBy, prefixEnum, urlEnum } from "../../constans.js";
 
 export class SurveyClass {
   constructor(params) {

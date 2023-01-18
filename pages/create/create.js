@@ -4,6 +4,7 @@ import { OpenQuestion } from "../../classes/question/openQuestionClass.js";
 import { ClosedChoiceQuestion } from "../../classes/question/ClosedChoiceClass.js";
 import { MultipleChoiceQuestion } from "../../classes/question/multipleChoiceClass.js";
 import router from "../../classes/router.js";
+import { questionTypeEnum, urlEnum } from "../../constans.js";
 
 export class CreatePage {
   constructor() {
@@ -19,9 +20,15 @@ export class CreatePage {
     formContainer.setAttribute("id", "create-survey-form");
 
     this.renderInputs(formContainer);
-
     this.renderQuestionsControlers(formContainer);
+    this.createSurveyButton(formContainer);
 
+    container.appendChild(formContainer);
+    this.handleError(container);
+    return container;
+  }
+
+  createSurveyButton(container) {
     const createsurveyButton = document.createElement("input");
     createsurveyButton.setAttribute("type", "submit");
     createsurveyButton.setAttribute("value", "Create");
@@ -39,13 +46,13 @@ export class CreatePage {
         router.changeRoute(`${urlEnum.Survey}`, "Surveys");
       }
     });
-    formContainer.appendChild(createsurveyButton);
+    container.appendChild(createsurveyButton);
+  }
 
-    container.appendChild(formContainer);
+  handleError(container) {
     const errorValid = document.createElement("h2");
     errorValid.setAttribute("id", "error-valid");
     container.appendChild(errorValid);
-    return container;
   }
 
   renderInputs(formContainer) {
