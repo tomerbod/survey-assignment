@@ -3,7 +3,7 @@ import router from "../../classes/router.js";
 import { ClosedChoiceQuestion } from "../../classes/question/ClosedChoiceClass.js";
 import { OpenQuestion } from "../../classes/question/openQuestionClass.js";
 import { MultipleChoiceQuestion } from "../../classes/question/multipleChoiceClass.js";
-import { prefixEnum, questionTypeEnum, urlEnum } from "../../constans.js";
+import { prefixEnum, questionTypeEnum, urlEnum } from "../../utils/constans.js";
 
 export class AnswerPage {
   constructor(params) {

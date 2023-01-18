@@ -1,5 +1,5 @@
 import { ChoiceQuestion } from "./choiceQuestionClass.js";
-import { questionTypeEnum } from "../../constans.js";
+import { questionTypeEnum } from "../../utils/constans.js";
 
 export class MultipleChoiceQuestion extends ChoiceQuestion {
   constructor(params) {

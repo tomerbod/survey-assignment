@@ -4,7 +4,7 @@ import { OpenQuestion } from "../../classes/question/openQuestionClass.js";
 import { ClosedChoiceQuestion } from "../../classes/question/ClosedChoiceClass.js";
 import { MultipleChoiceQuestion } from "../../classes/question/multipleChoiceClass.js";
 import router from "../../classes/router.js";
-import { questionTypeEnum, urlEnum } from "../../constans.js";
+import { questionTypeEnum, urlEnum } from "../../utils/constans.js";
 
 export class CreatePage {
   constructor() {

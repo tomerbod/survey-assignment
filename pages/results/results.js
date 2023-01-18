@@ -7,7 +7,7 @@ import {
   prefixEnum,
   NumberOfQuestionsInPage,
   questionTypeEnum,
-} from "../../constans.js";
+} from "../../utils/constans.js";
 
 export class ResultsPage {
   constructor(params, page = 1) {

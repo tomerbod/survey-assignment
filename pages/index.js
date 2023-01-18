@@ -2,7 +2,7 @@ import store from "../classes/storeManagerClass.js";
 import router from "../classes/router.js";
 import { SurveyClass } from "../classes/surveyComponent.js";
 import { paginationClass } from "../classes/paginationClass.js";
-import { sortBy, prefixEnum, urlEnum } from "../../constans.js";
+import { sortBy, prefixEnum, urlEnum } from "../utils/constans.js";
 
 const tableString = `<tr>
 <th>Name</th>

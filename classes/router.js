@@ -1,5 +1,5 @@
-import { isSurveyIdValid } from "../validators.js";
-import { urlEnum } from "../constans.js";
+import { isSurveyIdValid } from "../utils/validators.js";
+import { urlEnum } from "../utils/constans.js";
 import { SurveyPage } from "../pages/index.js";
 import { AnswerPage } from "../pages/answer/answer.js";
 import { CreatePage } from "../pages/create/create.js";

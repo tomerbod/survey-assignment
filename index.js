@@ -1,6 +1,6 @@
 import router from "./classes/router.js";
-import { mockData } from "./mocked.js";
-import { urlEnum } from "./constans.js";
+import { mockData } from "./utils/mocked.js";
+import { urlEnum } from "./utils/constans.js";
 
 // responsible for back and foward on browser
 window.onpopstate = (event) => {

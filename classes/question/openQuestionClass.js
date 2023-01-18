@@ -1,5 +1,5 @@
 import { Question } from "./questionClass.js";
-import { questionTypeEnum } from "../../constans.js";
+import { questionTypeEnum } from "../../utils/constans.js";
 
 export class OpenQuestion extends Question {
   constructor(params) {
